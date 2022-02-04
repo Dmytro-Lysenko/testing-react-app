@@ -34,16 +34,33 @@ describe("Search component", () => {
     expect(screen.getByPlaceholderText(/find post/i)).toBeInTheDocument();
   });
 
-//   test(`onChange works`, () => {
-//     render(
-//       <Search  value="" onChange={onChange}>
-//         Find:
-//       </Search>
-//     );
-//   });
+  //   test(`onChange works`, () => {
+  //     render(
+  //       <Search  value="" onChange={onChange}>
+  //         Find:
+  //       </Search>
+  //     );
+  //   });
 
-//   useEvent.type(screen.getByRole('textbox'), 'React');
+  //   useEvent.type(screen.getByRole('textbox'), 'React');
 
-//   expect(onChange).toHaveBeenCalledTimes(5)
+  //   expect(onChange).toHaveBeenCalledTimes(5)
 
+  test(`dinamic styles works`, () => {
+    render(<Search value="abc" onChange={onChange} />);
+
+    expect(screen.getByRole("textbox")).toHaveClass(`input`);
+    expect(screen.getByRole("textbox")).toHaveClass(`filled`);
+    expect(screen.getByText("Search")).toHaveClass("label");
+  });
+
+  test("Search snapshot", () => {
+    const { searching } = render(
+      <Search value="" onChange={onChange}>
+        Find :
+      </Search>
+    );
+
+    expect(searching).toMatchSnapshot();
+  });
 });
